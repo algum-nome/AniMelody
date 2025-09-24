@@ -1,0 +1,68 @@
+body {
+  background-color: #121217;
+  color: #eee;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+.player-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px;
+  box-shadow: 0 0 12px rgba(0, 242, 169, 0.4);
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  z-index: 10;
+  user-select: none;
+}
+
+.spotify-player {
+  
+  display: flex;
+  justify-content: center;
+  height: 350px;
+  
+  border-radius: 25px;
+  box-shadow: 0 0 12px rgba(0, 242, 169, 0.4);
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  z-index: 10;
+  user-select: none;
+}
+.lyrics-box {
+  flex: 1 1 400px;
+  max-width: 600px;
+  max-height: 500px;
+  overflow-y: auto;
+
+  background: #1f1f29;
+  border: 2px solid rgba(0, 242, 169, 0.3);
+  border-radius: 16px;
+  padding: 24px;
+
+  box-shadow: 0 0 20px rgba(0, 242, 169, 0.15);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.lyrics-box:hover {
+  box-shadow: 0 0 25px rgba(0, 242, 169, 0.5);
+  transform: translateY(-4px);
+}
+
+.lyrics-box h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+#artistName {
+  font-style: italic;
+  margin-bottom: 15px;
+  color: #ccc;
+}
+
+#lyrics {
+  white-space: pre-wrap;
+  line-height: 1.6;
+  color: #e0e0e0;
+}

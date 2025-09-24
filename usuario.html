@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meu Perfil - SpotAnime</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="usuario.css">
+</head>
+<body>
+  <main class="perfil-container">
+    <section class="perfil-box">
+      <div class="coluna esquerda">
+        <div class="foto-perfil">
+          <label for="uploadPic">
+            <i id="profileIcon" class="material-icons perfil-avatar">account_circle</i>
+          </label>
+          <input type="file" id="uploadPic" accept="image/*" hidden>
+        </div>
+      </div>
+
+      <div class="coluna direita">
+        <div class="perfil-info">
+          <label for="username">Nome de Usuário</label>
+          <input type="text" id="username" placeholder="Nome de usuário" value="Otaku_Loko123" />
+
+          <label for="pronouns">Pronomes</label>
+          <input type="text" id="pronouns" placeholder="Pronomes" value="ele/dele" />
+
+          <label for="bio">Bio</label>
+          <textarea id="bio" placeholder="Sua bio...">Sou viciado em animes e amo OSTs!</textarea>
+        </div>
+
+        <div class="botoes">
+          <button id="salvarPerfil">Salvar alterações</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    let imagemBase64 = null;
+
+    // Mostrar imagem ao escolher arquivo
+    document.getElementById('uploadPic').addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          imagemBase64 = e.target.result;
+
+          const icon = document.getElementById('profileIcon');
+          const img = document.createElement('img');
+          img.src = imagemBase64;
+          img.alt = "Avatar";
+          img.title = "Clique para trocar a foto";
+
+          img.style.width = "200px";
+          img.style.height = "200px";
+          img.style.borderRadius = "50%";
+          img.style.objectFit = "cover";
+          img.style.border = "4px solid #7aa793";
+          img.style.cursor = "pointer";
+
+          icon.replaceWith(img);
+
+          img.addEventListener('click', () => {
+            document.getElementById('uploadPic').click();
+            img.remove();
+          });
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Salvar dados no localStorage
+    document.getElementById('salvarPerfil').addEventListener('click', () => {
+      const nome = document.getElementById('username').value;
+      const pronome = document.getElementById('pronouns').value;
+      const bio = document.getElementById('bio').value;
+
+      if (imagemBase64) {
+        localStorage.setItem('fotoPerfil', imagemBase64);
+      }
+
+      localStorage.setItem('nomePerfil', nome);
+      localStorage.setItem('pronomePerfil', pronome);
+      localStorage.setItem('bioPerfil', bio);
+
+      window.location.href = 'index.html';
+    });
+    // Carregar dados do localStorage
+    window.addEventListener('load', () => {
+      const nome = localStorage.getItem('nomePerfil') || '';
+      const pronome = localStorage.getItem('pronomePerfil') || '';
+      const bio = localStorage.getItem('bioPerfil') || '';
+
+      document.getElementById('username').value = nome;
+      document.getElementById('pronouns').value = pronome;
+      document.getElementById('bio').value = bio;
+
+      const foto = localStorage.getItem('fotoPerfil');
+      if (foto) {
+        const img = document.createElement('img');
+        img.src = foto;
+        img.alt = "Avatar";
+        img.title = "Clique para trocar a foto";
+        img.style.width = "200px";
+        img.style.height = "200px";
+        img.style.borderRadius = "50%";
+        img.style.objectFit = "cover";
+        img.style.border = "4px solid #7aa793";
+        img.style.cursor = "pointer";
+
+        const icon = document.getElementById('profileIcon');
+        icon.replaceWith(img);
+
+        img.addEventListener('click', () => {
+          document.getElementById('uploadPic').click();
+        });
+      }
+    });
+
+  </script>
+</body>
+</html>
